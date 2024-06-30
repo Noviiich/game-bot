@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 const TelegramApi = require('node-telegram-bot-api')
-const token = '7279369202:AAFktW3qJcN-fGmqzLaCRgOm_GCNFqJpWjI'
+const token = process.env.TELEGRAM_BOT_TOKEN
 const bot = new TelegramApi(token, {polling: true})
 const {gameOptions, againOptions} = require('./options')
 const chats = {} 
@@ -39,7 +41,6 @@ const start = () => {
     bot.on('callback_query', msg => {
         const data = msg.data
         const chatId = msg.message.chat.id
-        console.log(chats[chatId])
         if (data === '/again') {
             return startGame(chatId)
         }
